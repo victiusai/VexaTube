@@ -81,6 +81,15 @@ jobs:
                   versionCode = 1
                   versionName = "1.0"
               }
+
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
+              }
           }
           EOF
 
@@ -111,13 +120,16 @@ jobs:
           import android.widget.*
 
           class MainActivity : Activity() {
+
               private val white = Color.WHITE
               private val gray = Color.LTGRAY
 
               override fun onCreate(savedInstanceState: Bundle?) {
                   super.onCreate(savedInstanceState)
+
                   window.statusBarColor = Color.BLACK
                   window.navigationBarColor = Color.BLACK
+
                   showPage("Главная")
               }
 
@@ -154,6 +166,7 @@ jobs:
                       "Профиль" -> "Профиль основателя\nКанал ещё не создан"
                       else -> "Раздел VexaTube"
                   }
+
                   message.textSize = 17f
                   message.setTextColor(gray)
                   message.gravity = Gravity.CENTER
@@ -168,16 +181,20 @@ jobs:
                       content.addView(badges)
                   }
 
-                  root.addView(content, LinearLayout.LayoutParams(
-                      -1, 0, 1f
-                  ))
+                  root.addView(
+                      content,
+                      LinearLayout.LayoutParams(-1, 0, 1f)
+                  )
 
                   val nav = LinearLayout(this)
                   nav.gravity = Gravity.CENTER
 
                   val pages = listOf(
-                      "Главная", "Клипы", "Подписки",
-                      "Библиотека", "Профиль"
+                      "Главная",
+                      "Клипы",
+                      "Подписки",
+                      "Библиотека",
+                      "Профиль"
                   )
 
                   pages.forEach { name ->
@@ -186,10 +203,14 @@ jobs:
                       button.textSize = 9f
                       button.setTextColor(white)
                       button.setBackgroundColor(Color.BLACK)
-                      button.setOnClickListener { showPage(name) }
-                      nav.addView(button, LinearLayout.LayoutParams(
-                          0, -2, 1f
-                      ))
+                      button.setOnClickListener {
+                          showPage(name)
+                      }
+
+                      nav.addView(
+                          button,
+                          LinearLayout.LayoutParams(0, -2, 1f)
+                      )
                   }
 
                   root.addView(nav)
