@@ -1,0 +1,361 @@
+.upload-studio-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.upload-studio {
+  width: min(100%, 620px);
+  max-height: 94vh;
+  overflow-y: auto;
+  background: #101010;
+  color: #fff;
+  border: 1px solid #303030;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.studio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.studio-kicker {
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.studio-header h2 {
+  margin: 6px 0 0;
+  font-size: 23px;
+}
+
+.studio-close {
+  background: #252525;
+  border: 0;
+  color: white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 25px;
+}
+
+.studio-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 22px 0;
+  border-bottom: 1px solid #303030;
+}
+
+.studio-tabs button {
+  background: none;
+  border: 0;
+  color: #999;
+  padding: 12px 8px;
+  border-bottom: 2px solid transparent;
+}
+
+.studio-tabs button.selected {
+  color: white;
+  border-color: white;
+}
+
+.studio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.studio-label {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.studio-file {
+  border: 1px dashed #555;
+  background: #181818;
+  border-radius: 13px;
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.studio-file > span {
+  font-size: 30px;
+}
+
+.studio-file small,
+.studio-empty small {
+  color: #999;
+}
+
+.studio-file input {
+  display: none;
+}
+
+.studio-small-file {
+  padding: 15px;
+}
+
+.studio-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #353535;
+  background: #191919;
+  color: white;
+  border-radius: 10px;
+  padding: 13px;
+  outline: none;
+  font: inherit;
+}
+
+.studio-input:focus {
+  border-color: #aaa;
+}
+
+.studio-textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.studio-video {
+  width: 100%;
+  max-height: 250px;
+  background: #000;
+  border-radius: 12px;
+}
+
+.studio-thumbnail {
+  width: 100%;
+  max-height: 190px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #000;
+}
+
+.studio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 8px 0;
+}
+
+.studio-options label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #292929;
+  font-size: 14px;
+}
+
+.studio-options input {
+  width: 19px;
+  height: 19px;
+  accent-color: white;
+}
+
+.studio-user-results {
+  background: #1b1b1b;
+  border: 1px solid #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.studio-user-results button {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #333;
+  color: white;
+}
+
+.studio-user-results small {
+  color: #999;
+}
+
+.studio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.studio-tags button {
+  background: #292929;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 20px;
+  padding: 7px 11px;
+}
+
+.studio-progress {
+  margin: 10px 0;
+}
+
+.studio-progress > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.studio-progress-track {
+  height: 7px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.studio-progress-track span {
+  display: block;
+  height: 100%;
+  background: white;
+  transition: width .2s;
+}
+
+.studio-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.studio-actions button,
+.draft-info button {
+  border-radius: 10px;
+  padding: 13px 10px;
+  font-weight: 700;
+  border: 1px solid #555;
+}
+
+.studio-primary {
+  background: white;
+  color: black;
+}
+
+.studio-secondary {
+  background: #222;
+  color: white;
+}
+
+.studio-actions button:disabled,
+.studio-options input:disabled {
+  opacity: .45;
+}
+
+.studio-alert {
+  padding: 12px;
+  border-radius: 10px;
+  background: #252525;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.studio-alert.error {
+  background: #351919;
+  color: #ffbcbc;
+}
+
+.studio-empty {
+  padding: 45px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.studio-empty span {
+  font-size: 35px;
+}
+
+.studio-drafts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.studio-drafts article {
+  display: flex;
+  gap: 12px;
+  background: #1a1a1a;
+  border: 1px solid #303030;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.studio-drafts article > img,
+.draft-placeholder {
+  width: 105px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #292929;
+  flex-shrink: 0;
+}
+
+.draft-placeholder {
+  display: grid;
+  place-items: center;
+}
+
+.draft-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.draft-info strong {
+  overflow-wrap: anywhere;
+}
+
+.draft-info small {
+  color: #999;
+}
+
+.draft-info > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.draft-info button {
+  padding: 7px 10px;
+  background: #292929;
+  color: white;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .upload-studio {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .studio-header h2 {
+    font-size: 20px;
+  }
+
+  .studio-actions {
+    grid-template-columns: 1fr;
+  }
+}

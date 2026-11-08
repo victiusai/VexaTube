@@ -1,0 +1,261 @@
+.premium-page {
+  width: 100%;
+  padding-bottom: 40px;
+  color: #f7f7f8;
+}
+
+.premium-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px solid rgba(226, 183, 91, .2);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(194, 143, 49, .22), transparent 65%),
+    linear-gradient(145deg, #211b11, #101010 70%);
+}
+
+.premium-crown {
+  font-size: 54px;
+  color: #e8bd65;
+  margin-bottom: 12px;
+  text-shadow: 0 0 35px rgba(232, 189, 101, .4);
+}
+
+.premium-eyebrow,
+.premium-section-heading > span {
+  color: #d9b365;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.premium-hero h1 {
+  margin: 14px 0;
+  font-size: clamp(27px, 6vw, 42px);
+  font-weight: 800;
+}
+
+.premium-hero h1 span {
+  color: #e8bd65;
+}
+
+.premium-hero > p {
+  max-width: 470px;
+  margin: 0 auto;
+  color: #aaa6a0;
+  line-height: 1.7;
+}
+
+.premium-status {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 11px 17px;
+  border: 1px solid rgba(232, 189, 101, .3);
+  border-radius: 30px;
+  background: rgba(232, 189, 101, .08);
+  color: #e8bd65;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.premium-benefits,
+.premium-plans {
+  margin-top: 38px;
+}
+
+.premium-benefits h2,
+.premium-section-heading h2 {
+  margin: 0 0 20px;
+  font-size: 23px;
+}
+
+.premium-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.premium-benefit-grid article {
+  min-width: 0;
+  padding: 19px;
+  border: 1px solid #282522;
+  border-radius: 17px;
+  background: #111110;
+}
+
+.premium-benefit-grid article > span {
+  color: #e8bd65;
+  font-size: 27px;
+}
+
+.premium-benefit-grid h3 {
+  margin: 13px 0 7px;
+  font-size: 14px;
+}
+
+.premium-benefit-grid p {
+  margin: 0;
+  color: #93908b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.premium-section-heading {
+  margin-bottom: 20px;
+}
+
+.premium-section-heading h2 {
+  margin: 9px 0;
+}
+
+.premium-section-heading p {
+  color: #92908c;
+  font-size: 13px;
+}
+
+.premium-plan-list {
+  display: grid;
+  gap: 12px;
+}
+
+.premium-plan {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 19px 14px;
+  border: 1px solid #302e2a;
+  border-radius: 16px;
+  background: #111110;
+  color: white;
+  text-align: left;
+}
+
+.premium-plan.plan-selected {
+  border-color: #d8ad58;
+  background: linear-gradient(110deg, rgba(216, 173, 88, .12), #111110);
+}
+
+.plan-radio {
+  color: #e8bd65;
+  font-size: 19px;
+}
+
+.plan-info {
+  display: grid;
+  flex: 1;
+  gap: 6px;
+  min-width: 0;
+}
+
+.plan-info strong {
+  font-size: 14px;
+}
+
+.plan-info span,
+.plan-price span {
+  color: #96928b;
+  font-size: 10px;
+}
+
+.plan-price {
+  display: grid;
+  gap: 5px;
+  text-align: right;
+}
+
+.plan-price strong {
+  color: #e8bd65;
+  font-size: 14px;
+}
+
+.plan-popular {
+  position: absolute;
+  top: -9px;
+  right: 13px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #d8ad58;
+  color: #15120c;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.premium-buy-button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 17px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(110deg, #c69a48, #f0d18a);
+  color: #17130b;
+  font-weight: 800;
+  opacity: .65;
+  cursor: not-allowed;
+}
+
+.premium-payment-note {
+  margin-top: 13px;
+  color: #85817b;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.premium-active-card {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid rgba(232, 189, 101, .35);
+  border-radius: 15px;
+  background: rgba(232, 189, 101, .07);
+}
+
+.premium-active-card strong {
+  color: #e8bd65;
+}
+
+.premium-active-card p {
+  margin-bottom: 0;
+  color: #aaa6a0;
+  font-size: 13px;
+}
+
+.premium-error {
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid #693d3d;
+  border-radius: 10px;
+  color: #ff9b9b;
+  font-size: 12px;
+}
+
+.premium-footer {
+  margin-top: 35px;
+  color: #77736d;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .premium-hero {
+    padding: 35px 15px;
+  }
+
+  .premium-benefit-grid article {
+    padding: 14px;
+  }
+
+  .premium-plan {
+    gap: 8px;
+    padding: 16px 10px;
+  }
+
+  .plan-info span {
+    font-size: 9px;
+  }
+}
