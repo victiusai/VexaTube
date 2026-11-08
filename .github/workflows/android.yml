@@ -3,7 +3,8 @@ name: VexaTube APK Build
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -26,14 +27,16 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v4
-with:
-  accept-android-sdk-licenses: true
-  log-accepted-android-sdk-licenses: false
+        with:
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+
+      - name: Install Android packages
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Create Android project
         run: |
           mkdir -p app/src/main/java/com/vexatube/app
-          mkdir -p app/src/main/res/values
 
           cat > settings.gradle.kts <<'EOF'
           pluginManagement {
@@ -66,9 +69,11 @@ with:
               id("com.android.application")
               id("org.jetbrains.kotlin.android")
           }
+
           android {
               namespace = "com.vexatube.app"
               compileSdk = 35
+
               defaultConfig {
                   applicationId = "com.vexatube.app"
                   minSdk = 23
@@ -83,8 +88,7 @@ with:
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <application
                   android:theme="@android:style/Theme.Material.NoActionBar"
-                  android:label="VexaTube"
-                  android:usesCleartextTraffic="false">
+                  android:label="VexaTube">
                   <activity
                       android:name=".MainActivity"
                       android:exported="true">
@@ -107,7 +111,6 @@ with:
           import android.widget.*
 
           class MainActivity : Activity() {
-              private lateinit var content: LinearLayout
               private val white = Color.WHITE
               private val gray = Color.LTGRAY
 
@@ -130,7 +133,7 @@ with:
                   header.setPadding(20, 20, 20, 20)
                   root.addView(header)
 
-                  content = LinearLayout(this)
+                  val content = LinearLayout(this)
                   content.orientation = LinearLayout.VERTICAL
                   content.gravity = Gravity.CENTER
                   content.setPadding(24, 20, 24, 20)
@@ -143,12 +146,12 @@ with:
                   content.addView(title)
 
                   val message = TextView(this)
-                  message.text = when(page) {
+                  message.text = when (page) {
                       "Главная" -> "Пока здесь нет видео"
                       "Клипы" -> "Пока нет клипов"
                       "Подписки" -> "Пока нет подписок"
                       "Библиотека" -> "Ваша библиотека пока пуста"
-                      "Профиль" -> "Профиль основателя\\nКанал ещё не создан"
+                      "Профиль" -> "Профиль основателя\nКанал ещё не создан"
                       else -> "Раздел VexaTube"
                   }
                   message.textSize = 17f
@@ -159,7 +162,7 @@ with:
 
                   if (page == "Профиль") {
                       val badges = TextView(this)
-                      badges.text = "✓  ◆  ✦  ⬡"
+                      badges.text = "✓   ◆   ✦   ⬡"
                       badges.textSize = 25f
                       badges.setTextColor(white)
                       content.addView(badges)
@@ -171,10 +174,12 @@ with:
 
                   val nav = LinearLayout(this)
                   nav.gravity = Gravity.CENTER
+
                   val pages = listOf(
                       "Главная", "Клипы", "Подписки",
                       "Библиотека", "Профиль"
                   )
+
                   pages.forEach { name ->
                       val button = Button(this)
                       button.text = name
@@ -186,6 +191,7 @@ with:
                           0, -2, 1f
                       ))
                   }
+
                   root.addView(nav)
                   setContentView(root)
               }
@@ -193,7 +199,7 @@ with:
           EOF
 
       - name: Build APK
-        run: gradle assembleDebug
+        run: gradle --no-daemon assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
