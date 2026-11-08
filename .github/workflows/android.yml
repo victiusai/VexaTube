@@ -1,0 +1,229 @@
+name: VexaTube APK Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+
+      - name: Install Android packages
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Create Android project
+        run: |
+          mkdir -p app/src/main/java/com/vexatube/app
+
+          cat > settings.gradle.kts <<'EOF'
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = "VexaTube"
+          include(":app")
+          EOF
+
+          cat > build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application") version "8.7.3" apply false
+              id("org.jetbrains.kotlin.android") version "2.0.21" apply false
+          }
+          EOF
+
+          cat > app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.vexatube.app"
+              compileSdk = 35
+
+              defaultConfig {
+                  applicationId = "com.vexatube.app"
+                  minSdk = 23
+                  targetSdk = 35
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
+              }
+          }
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <application
+                  android:theme="@android:style/Theme.Material.NoActionBar"
+                  android:label="VexaTube">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN"/>
+                          <category android:name="android.intent.category.LAUNCHER"/>
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
+
+          cat > app/src/main/java/com/vexatube/app/MainActivity.kt <<'EOF'
+          package com.vexatube.app
+
+          import android.app.Activity
+          import android.os.Bundle
+          import android.graphics.Color
+          import android.view.Gravity
+          import android.widget.*
+
+          class MainActivity : Activity() {
+
+              private val white = Color.WHITE
+              private val gray = Color.LTGRAY
+
+              override fun onCreate(savedInstanceState: Bundle?) {
+                  super.onCreate(savedInstanceState)
+
+                  window.statusBarColor = Color.BLACK
+                  window.navigationBarColor = Color.BLACK
+
+                  showPage("Главная")
+              }
+
+              private fun showPage(page: String) {
+                  val root = LinearLayout(this)
+                  root.orientation = LinearLayout.VERTICAL
+                  root.setBackgroundColor(Color.BLACK)
+
+                  val header = TextView(this)
+                  header.text = "VexaTube"
+                  header.textSize = 25f
+                  header.setTextColor(white)
+                  header.setPadding(20, 20, 20, 20)
+                  root.addView(header)
+
+                  val content = LinearLayout(this)
+                  content.orientation = LinearLayout.VERTICAL
+                  content.gravity = Gravity.CENTER
+                  content.setPadding(24, 20, 24, 20)
+
+                  val title = TextView(this)
+                  title.text = page
+                  title.textSize = 26f
+                  title.setTextColor(white)
+                  title.gravity = Gravity.CENTER
+                  content.addView(title)
+
+                  val message = TextView(this)
+                  message.text = when (page) {
+                      "Главная" -> "Пока здесь нет видео"
+                      "Клипы" -> "Пока нет клипов"
+                      "Подписки" -> "Пока нет подписок"
+                      "Библиотека" -> "Ваша библиотека пока пуста"
+                      "Профиль" -> "Профиль основателя\nКанал ещё не создан"
+                      else -> "Раздел VexaTube"
+                  }
+
+                  message.textSize = 17f
+                  message.setTextColor(gray)
+                  message.gravity = Gravity.CENTER
+                  message.setPadding(10, 24, 10, 24)
+                  content.addView(message)
+
+                  if (page == "Профиль") {
+                      val badges = TextView(this)
+                      badges.text = "✓   ◆   ✦   ⬡"
+                      badges.textSize = 25f
+                      badges.setTextColor(white)
+                      content.addView(badges)
+                  }
+
+                  root.addView(
+                      content,
+                      LinearLayout.LayoutParams(-1, 0, 1f)
+                  )
+
+                  val nav = LinearLayout(this)
+                  nav.gravity = Gravity.CENTER
+
+                  val pages = listOf(
+                      "Главная",
+                      "Клипы",
+                      "Подписки",
+                      "Библиотека",
+                      "Профиль"
+                  )
+
+                  pages.forEach { name ->
+                      val button = Button(this)
+                      button.text = name
+                      button.textSize = 9f
+                      button.setTextColor(white)
+                      button.setBackgroundColor(Color.BLACK)
+                      button.setOnClickListener {
+                          showPage(name)
+                      }
+
+                      nav.addView(
+                          button,
+                          LinearLayout.LayoutParams(0, -2, 1f)
+                      )
+                  }
+
+                  root.addView(nav)
+                  setContentView(root)
+              }
+          }
+          EOF
+
+      - name: Build APK
+        run: gradle --no-daemon assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: VexaTube-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
